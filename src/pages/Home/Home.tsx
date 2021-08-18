@@ -18,7 +18,7 @@ const Home: React.FC = () => {
   }
 
   const getUrlClick = async () => {
-    const newData = await getUrl('asdasd')
+    const newData = await getUrl('someOriginalUrl')
   }
 
   return (
