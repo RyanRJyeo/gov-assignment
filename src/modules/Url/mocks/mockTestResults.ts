@@ -1,5 +1,5 @@
-export const testOriginalUrl = 'someOriginalUrl'
-export const testShortUrl = 'http://localhost:3000/url?=omRH8RUw83OEYtLtro8v'
+export const testOriginalUrl = 'https://www.reuters.com/article/urnidgns002570f3005978d8002576f60035a6bb-idUS98192761820100330'
+export const testShortUrl = 'http://localhost:3000/url?id=omRH8RUw83OEYtLtro8v'
 export const testId = 'omRH8RUw83OEYtLtro8v'
 
 export const mockReturnExistingUrl = () => ({

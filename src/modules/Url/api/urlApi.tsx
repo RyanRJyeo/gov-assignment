@@ -54,7 +54,7 @@ export const createUrl = async (url: string): Promise<UrlModel | null> => {
       const newUrlRef = urlRef.doc()
       const values = {
         originalUrl: url,
-        shortUrl: `http://localhost:3000/url?=${newUrlRef.id}`,
+        shortUrl: `http://localhost:3000/url?id=${newUrlRef.id}`,
       }
       await newUrlRef.set(values)
       return { ...values, id: newUrlRef.id }

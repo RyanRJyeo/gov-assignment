@@ -1,39 +1,40 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { UrlModel } from '../../modules/Url/model/urlModel'
-import { createUrl, getUrl, getUrls } from '../../modules/Url/api/urlApi'
+import { createUrl } from '../../modules/Url/api/urlApi'
+import TextInput from '../../components/TextInput/TextInput'
 
 const Home: React.FC = () => {
-  const [urls, setUrls] = useState<UrlModel[] | null>(null)
-  useEffect(() => {
-    const fetchData = async () => {
-      const nextUrls = await getUrls()
-      setUrls(nextUrls)
+  const [inputValue, setInputValue] = useState<string>()
+  const [currentUrl, setCurrentUrl] = useState<UrlModel>()
+
+  const createUrlClick = async (url: string) => {
+    if (url) {
+      const nextCurrentUrl = await createUrl(url)
+      if (nextCurrentUrl) setCurrentUrl(nextCurrentUrl as UrlModel)
     }
-
-    fetchData()
-  }, [])
-
-  const createUrlClick = async () => {
-    const newData = await createUrl('someOriginalUrl')
   }
 
-  const getUrlClick = async () => {
-    const newData = await getUrl('someOriginalUrl')
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const nextInputValue = event.target.value
+    setInputValue(nextInputValue)
   }
 
   return (
     <div className="App">
       <header className="App-header">
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <button onClick={createUrlClick}>Create new url</button>
-        <button onClick={getUrlClick}>Get url</button>
+        <TextInput name="url" value={inputValue} onChange={handleInputChange} />
+        <button onClick={() => createUrlClick(inputValue as string)}>
+          Create new url
+        </button>
+        {Boolean(currentUrl) && (
+          <a
+            href={currentUrl?.originalUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {currentUrl?.shortUrl}
+          </a>
+        )}
       </header>
     </div>
   )
